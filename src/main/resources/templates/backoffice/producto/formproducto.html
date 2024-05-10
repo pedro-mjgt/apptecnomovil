@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Productos</title>
+</head>
+<body>
+    <script th:src="@{/js/web/backoffice/producto/formproducto.js}" type="text/javascript"></script>
+    <nav th:replace="~{layout::menu}"></nav>
+    <div class="card">
+        <div class="card-header">
+            <h1>Mantenimiento de Productos</h1>
+        </div>
+        <div class="card-body">
+            <button id="btnagregar" type="button" class="btn btn-primary">Nuevo Producto</button>
+            <hr>
+            <table id="tblproducto" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Activo</th>
+                        <th scope="col">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="producto : ${listaproductos}">
+                        <td th:text="${producto.productoid}"></td>
+                        <td th:text="${producto.nombre}"></td>
+                        <td th:text="${producto.categoria.nombre}"></td>
+                        <td th:text="${producto.marca.nombre}"></td>
+                        <td th:text="${producto.precio}"></td>
+                        <td th:text="${producto.stock}"></td>
+                        <td th:text="${producto.activo}"></td>
+                        <td>
+                            <button type="button" class="btn btn-success btnactualizar"
+                                th:data-prodcod="${producto.productoid}"
+                                th:data-prodnom="${producto.nombre}"
+                                th:data-prodcat="${producto.categoria.categoriaid}"
+                                th:data-prodmar="${producto.marca.marcaid}"
+                                th:data-prodpre="${producto.precio}"
+                                th:data-prodsto="${producto.stock}"
+                                th:data-prodact="${producto.activo}">Actualizar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal: regitrar y actualizar -->
+    <div class="modal fade" id="modalproducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtnomproducto">
+                        <label for="txtnomproducto">Ingrese nombre del producto</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cbocategoria" class="form-label">Seleccione categoria</label>
+                        <select id="cbocategoria" class="form-select" ></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cbomarca" class="form-label">Seleccione marca</label>
+                        <select id="cbomarca" class="form-select" ></select>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtpreproducto">
+                        <label for="txtpreproducto">Ingrese precio del producto</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtstoproducto">
+                        <label for="txtstoproducto">Ingrese stock del producto</label>
+                    </div>
+                    <div class="form-check form-switch" id="switchproducto">
+                        <input class="form-check-input" type="checkbox" role="switch" id="cbdactivo">
+                        <label class="form-check-label" for="cbdactivo">¿Producto activo?</label>
+                    </div>
+                    <input type="hidden" id="hddprodcod" value="0">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnguardar" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
