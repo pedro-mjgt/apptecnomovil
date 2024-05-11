@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+</head>
+<body>
+<script th:src="@{/js/web/backoffice/cliente/formcliente.js}" type="text/javascript"></script>
+<nav th:replace="~{layout::menu}"></nav>
+<div class="card">
+    <div class="card-header">
+        <h1>Mantenimiento de Clientes</h1>
+    </div>
+    <div class="card-body">
+        <button id="btnagregar" type="button" class="btn btn-primary">Nuevo Cliente</button>
+        <hr>
+        <table id="tblcliente" class="table">
+            <thead>
+            <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Activo</th>
+                <th scope="col">Accion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cliente : ${listaclientes}">
+                <td th:text="${cliente.clienteid}"></td>
+                <td th:text="${cliente.nombre}"></td>
+                <td th:text="${cliente.direccion}"></td>
+                <td th:text="${cliente.email}"></td>
+                <td th:text="${cliente.telefono}"></td>
+                <td th:text="${cliente.activo}"></td>
+                <td>
+                    <button type="button" class="btn btn-success btnactualizar"
+                    th:data-clicod="${cliente.clienteid}"
+                    th:data-clinom="${cliente.nombre}"
+                    th:data-clidir="${cliente.direccion}"
+                    th:data-cliema="${cliente.email}"
+                    th:data-clitel="${cliente.telefono}"
+                    th:data-cliact="${cliente.activo}">Actualizar</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal: registrar y actualizar -->
+<div class="modal fade" id="modalcliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Clientes</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="txtnomcliente">
+                    <label for="txtnomcliente">Ingrese nombre del cliente</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="txtdireccion">
+                    <label for="txtdireccion">Ingrese direccion del cliente</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="txtemail">
+                    <label for="txtemail">Ingrese email del cliente</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="txttelefono">
+                    <label for="txttelefono">Ingrese telefono del cliente</label>
+                </div>
+                <div class="form-check form-switch" id="switchcliente">
+                    <input class="form-check-input" type="checkbox" role="switch" id="cbdactivo">
+                    <label class="form-check-label" for="cbdactivo">¿Cliente activo?</label>
+                </div>
+                <input type="hidden" id="hddclicod" value="0">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnguardar" class="btn btn-light">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
