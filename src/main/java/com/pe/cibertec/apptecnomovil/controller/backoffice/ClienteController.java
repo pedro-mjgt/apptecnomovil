@@ -41,6 +41,7 @@ public class ClienteController {
 
             if (clienteRequest.getClienteid() > 0) {
                 cliente.setClienteid(clienteRequest.getClienteid());
+                cliente.setActivo(clienteRequest.getActivo());
                 mensaje = "Cliente actualizado";
             }
 
@@ -48,7 +49,7 @@ public class ClienteController {
             cliente.setDireccion(clienteRequest.getDireccion());
             cliente.setEmail(clienteRequest.getEmail());
             cliente.setTelefono(clienteRequest.getTelefono());
-            cliente.setActivo(clienteRequest.getActivo());
+            cliente.setActivo(true);
 
             iClienteService.registrarCliente(cliente);
         }

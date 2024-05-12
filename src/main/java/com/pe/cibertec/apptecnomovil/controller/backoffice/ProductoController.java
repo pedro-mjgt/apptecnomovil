@@ -43,13 +43,14 @@ public class ProductoController {
 
             if (productoRequest.getProductoid() > 0) {
                 producto.setProductoid(productoRequest.getProductoid());
+                producto.setActivo(productoRequest.getActivo());
                 mensaje = "Producto actualizado";
             }
 
             producto.setNombre(productoRequest.getNombre());
             producto.setPrecio(productoRequest.getPrecio());
             producto.setStock(productoRequest.getStock());
-            producto.setActivo(productoRequest.getActivo());
+            producto.setActivo(true);
             Categoria categoria = new Categoria();
             categoria.setCategoriaid(productoRequest.getCategoriaid());
             producto.setCategoria(categoria);

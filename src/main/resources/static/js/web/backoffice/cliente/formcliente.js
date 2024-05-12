@@ -63,7 +63,7 @@ function listarClientes(){
                 `<td>${value.telefono}</td>`+
                 `<td>${value.activo}</td>`+
                 `<td><button type='button' class='btn btn-success btnactualizar' `+
-                    `data-clicod"${value.clienteid}" `+
+                    `data-clicod="${value.clienteid}" `+
                     `data-clinom="${value.nombre}" `+
                     `data-clidir="${value.direccion}" `+
                     `data-cliema="${value.email}" `+
