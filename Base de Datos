@@ -1,0 +1,122 @@
+-- Crear base de datos
+CREATE DATABASE TECNOMOVIL;
+USE TECNOMOVIL;
+
+-- Tabla Categoria
+CREATE TABLE Categoria (
+    CategoriaID INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100)
+);
+
+-- Tabla Marca
+CREATE TABLE Marca (
+    MarcaID INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100)
+);
+
+-- Tabla Producto
+CREATE TABLE Producto (
+    ProductoID INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100),
+    CategoriaID INT,
+    MarcaID INT,
+    Precio DECIMAL(7, 2),
+    Stock INT,
+    activo BOOL,
+    FOREIGN KEY (CategoriaID) REFERENCES Categoria(CategoriaID),
+    FOREIGN KEY (MarcaID) REFERENCES Marca(MarcaID)
+);
+
+-- Tabla Cliente
+CREATE TABLE Cliente (
+    ClienteID INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100),
+    Direccion VARCHAR(200),
+    Email VARCHAR(100),
+    Telefono VARCHAR(15),
+    activo BOOL
+);
+
+-- Tabla Venta
+CREATE TABLE Venta (
+    VentaID INT AUTO_INCREMENT PRIMARY KEY,
+    ClienteID INT,
+    FechaVenta DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID)
+);
+
+-- Tabla DetalleVenta
+CREATE TABLE DetalleVenta (
+    DetalleVentaID INT AUTO_INCREMENT PRIMARY KEY,
+    VentaID INT,
+    ProductoID INT,
+    Cantidad INT,
+    PrecioUnitario DECIMAL(7, 2),
+    FOREIGN KEY (VentaID) REFERENCES Venta(VentaID),
+    FOREIGN KEY (ProductoID) REFERENCES Producto(ProductoID)
+);
+
+CREATE TABLE usuario (
+    idusuario INT AUTO_INCREMENT NOT NULL,
+    nomusuario VARCHAR(100),
+    email VARCHAR(200),
+    password VARCHAR(300),
+    nombres VARCHAR(100),
+    apellidos VARCHAR(100),
+    activo BOOL,
+    CONSTRAINT users_pk PRIMARY KEY (idusuario)
+);
+CREATE TABLE rol (
+    idrol INT AUTO_INCREMENT NOT NULL,
+    nomrol VARCHAR(300),
+    CONSTRAINT roles_pk PRIMARY KEY (idrol)
+);
+CREATE TABLE usuario_rol (
+    idusuario INT NOT NULL,
+    idrol INT NOT NULL,
+    PRIMARY KEY (idusuario, idrol),
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+    FOREIGN KEY (idrol) REFERENCES rol(idrol)
+);
+
+INSERT INTO Cliente (Nombre, Direccion, Email, Telefono)
+VALUES ('Joan', 'Dirección 1', 'cliente1@example.com', '123456789'),
+       ('Allen', 'Dirección 2', 'cliente2@example.com', '987654321'),
+       ('Mishelle', 'Dirección 3', 'cliente3@example.com', '456123789'),
+       ('Cinthya', 'Dirección 4', 'cliente4@example.com', '789456123'),
+       ('Hamer', 'Dirección 5', 'cliente5@example.com', '321654987'),
+       ('Jackeline', 'Dirección 6', 'cliente6@example.com', '654321987');
+      
+      
+      
+      
+      
+INSERT INTO Categoria (Nombre) VALUES
+('Celulares'),
+('Accesorios'),
+('Fundas y protectores'),
+('Cargadores y cables'),
+('Auriculares y manos libres');
+
+INSERT INTO Marca (Nombre) VALUES
+('Samsung'),
+('Apple'),
+('Huawei'),
+('Xiaomi'),
+('Sony');
+
+INSERT INTO Producto (Nombre, CategoriaID, MarcaID, Precio, Stock, Activo) VALUES
+('Samsung Galaxy S21', 1, 1, 999.99, 50, TRUE),
+('iPhone 13 Pro', 1, 2, 1099.99, 40, TRUE),
+('Huawei P40', 1, 3, 799.99, 30, TRUE),
+('Xiaomi Redmi Note 10', 1, 4, 299.99, 60, TRUE),
+('Sony Xperia 5 II', 1, 5, 899.99, 20, TRUE),
+('Funda protectora para iPhone 13 Pro', 3, 2, 19.99, 100, TRUE),
+('Cargador rápido USB-C', 4, 1, 14.99, 80, TRUE),
+('Auriculares Bluetooth', 5, 1, 39.99, 70, TRUE),
+('Protector de pantalla para Samsung Galaxy S21', 3, 1, 9.99, 120, TRUE),
+('Cable Lightning para iPhone', 4, 2, 12.99, 90, TRUE);
+
+
+
+
